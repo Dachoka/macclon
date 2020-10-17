@@ -1,3 +1,5 @@
+{% load bootstrap3 %}
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,11 +10,24 @@
     {% else %}
       <title> InstaGlam</title>
     {% endif %}
+
+    {% block styles %}
+        {% bootstrap_css %}
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% endblock %}
 </head>
 <body>
+    {% include "navbar.html" %}
     {% block content %}
 
     {% endblock %}
+
+    {% block scripts %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'js/base.js'%}"></script>
+    {% bootstrap_javascript %}
+    {% endblock %}
+
     
 </body>
 </html>
