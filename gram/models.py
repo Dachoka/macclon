@@ -11,3 +11,6 @@ class Image(models.Model):
     upload_date = models.DateTimeField(auto_now_add=True, null = True)
 
 
+class Profile(models.Model):
+    photo = models.ImageField(upload_to = 'photos/')
+    bio = models.TextField()
