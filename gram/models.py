@@ -13,6 +13,9 @@ class Image(models.Model):
     def save_image(self):
         self.save()
 
+    def update_image(self):
+        self.update()
+
 
 class Profile(models.Model):
     photo = models.ImageField(upload_to = 'photos/')
