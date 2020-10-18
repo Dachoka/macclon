@@ -10,6 +10,9 @@ class Image(models.Model):
     comments = models.TextField(blank = True)
     upload_date = models.DateTimeField(auto_now_add=True, null = True)
 
+    def save_image(self):
+        self.save()
+
 
 class Profile(models.Model):
     photo = models.ImageField(upload_to = 'photos/')
