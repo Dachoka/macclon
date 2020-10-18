@@ -16,6 +16,9 @@ class Image(models.Model):
     def update_image(self):
         self.update()
 
+    def delete_image(self):
+        self.delete()
+
 
 class Profile(models.Model):
     photo = models.ImageField(upload_to = 'photos/')
