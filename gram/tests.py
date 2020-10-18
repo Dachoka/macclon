@@ -55,3 +55,10 @@ class ImageTestCase(TestCase):
         self.photoshoot = Image.objects.filter(caption = 'Pose').update(caption = 'pretty pink')
         self.image_update = Image.objects.get(image = 'photos/shoot.jpeg')
         self.assertEqual(self.image_update.caption,'pretty pink' )
+
+    def test_delete_method(self):
+        self.photoshoot.save_image()
+        self.photoshoot = Image.objects.get(image = 'photos/shoot.jpeg')
+        self.photoshoot.delete_image()
+        images = Image.objects.all()
+        self.assertTrue(len(images)==0)
