@@ -24,3 +24,10 @@ class ProfileTestCase(TestCase):
         self.daisy = Profile.objects.filter(bio = 'Loving Life').update(bio = 'Awesomeness')
         self.profile_update = Profile.objects.get(photo='photos/dpic.jpeg')
         self.assertEqual(self.profile_update.bio, 'Awesomeness')
+
+    def test_delete_method(self):
+        self.daisy.save_profile()
+        self.daisy = Profile.objects.get(photo = 'photos/dpic.jpeg')
+        self.daisy.delete_profile()
+        profiles= Profile.objects.all()
+        self.assertTrue(len(profiles) == 0)
