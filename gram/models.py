@@ -20,3 +20,6 @@ class Profile(models.Model):
 
     def update_profile(self):
         self.update()
+
+    def delete_profile(self):
+        self.delete()
