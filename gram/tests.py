@@ -49,3 +49,9 @@ class ImageTestCase(TestCase):
         self.photoshoot.save_image()
         images = Image.objects.all()
         self.assertTrue(len(images)>0)
+
+    def test_update_method(self):
+        self.photoshoot.save_image()
+        self.photoshoot = Image.objects.filter(caption = 'Pose').update(caption = 'pretty pink')
+        self.image_update = Image.objects.get(image = 'photos/shoot.jpeg')
+        self.assertEqual(self.image_update.caption,'pretty pink' )
