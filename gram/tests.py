@@ -31,3 +31,17 @@ class ProfileTestCase(TestCase):
         self.daisy.delete_profile()
         profiles= Profile.objects.all()
         self.assertTrue(len(profiles) == 0)
+
+
+class ImageTestCase(TestCase):
+    '''
+    Testcase that runs tests for image model objects
+    '''
+    def setUp(self):
+        self.machoka = Profile(photo = 'photos/propic.jpg', bio = 'Live love laugh')
+        self.machoka.save_profile()
+        self.photoshoot = Image(image = 'photos/shoot.jpeg',name = 'My Photoshoot', caption = 'Pose', profile = self.machoka,likes=1, comments='Nice')
+
+    def test_instance(self):
+        self.assertTrue(isinstance(self.photoshoot, Image))
+        
