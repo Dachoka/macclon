@@ -1,8 +1,9 @@
 from django.db import models
+from pyuploadcare.dj.models import ImageField
 
 # Create your models here.
 class Image(models.Model):
-    image = models.ImageField(upload_to = 'photos/')
+    image = ImageField(blank=True, manual_crop="")
     name = models.CharField(max_length = 80)
     caption = models.TextField(blank = True)
     profile = models.ForeignKey('Profile', on_delete=models.CASCADE)
@@ -21,7 +22,7 @@ class Image(models.Model):
 
 
 class Profile(models.Model):
-    photo = models.ImageField(upload_to = 'photos/')
+    photo = ImageField(blank=True, manual_crop="")
     bio = models.TextField()
 
     def save_profile(self):
