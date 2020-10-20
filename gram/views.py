@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, authenticate,logout
-from .forms import UserCreateForm,UploadPhotoForm
+from .forms import UserCreateForm,UploadPhotoForm,UpdateProfileForm
 from .email import send_welcome_email
 from django.conf import settings
 from .models import Image,Profile
@@ -20,10 +20,11 @@ def signup(request):
         form = UserCreateForm(request.POST)
         if form.is_valid():
             form.save()
-            user = form.cleaned_data.get("username")
+            username = form.cleaned_data.get("username")
             email = form.cleaned_data.get("email")
 
-            send_welcome_email(user,email)
+            send_welcome_email(username,email)
+            return redirect
 
     return render(request, 'registration/signup.html',{"form":form,})
 
