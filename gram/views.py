@@ -13,20 +13,45 @@ from django.contrib.auth.models import User
 def homepage(request):
     return render(request, 'home.html')
 
+def profile(request):
+    return render(request, 'profile.html')
+
 def signup(request):
-    form = UserCreateForm()
 
     if request.method == 'POST':
-        form = UserCreateForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get("username")
-            email = form.cleaned_data.get("email")
+        user_form = UserCreateForm(request.POST)
+        profile_form = UpdateProfileForm(request.POST,request.FILES)
+        if user_form.is_valid() and profile_form.is_valid():
+            user =user_form.save()
+            profile = profile_form.save(commit =False)
+            profile.user = request.user
+            profile.save()
+            username = user_form.cleaned_data.get("username")
+            email = user_form.cleaned_data.get("email")
 
             send_welcome_email(username,email)
-            return redirect
+            return redirect('profile')
 
-    return render(request, 'registration/signup.html',{"form":form,})
+    else:
+        user_form = UserCreateForm()
+
+    return render(request, 'registration/signup.html',{"user_form":user_form,"profile_form":profile_form})
+
+def addprofile(request):
+    form = UpdateProfileForm()
+    current_user = request.user
+
+    if request.method == 'POST':
+        form = UpdateProfileForm(request.POST,request.FILES)
+        if form.is_valid():
+            profile =form.save(commit = False)
+            profile.owner = current_user
+            profile.save()
+            return redirect ('profile')
+        else:
+            form = UpdateProfileForm()
+    return render(request, 'photos/new_pic.html', {"form":form})
+
 
 def uploadphoto(request):
     form = UploadPhotoForm()
@@ -45,12 +70,6 @@ def uploadphoto(request):
     return render(request, 'photos/new_photo.html',{"form":form})
 
 
-def profile(request):
-    if request.user.is_authenticated:
-        current_user = User.objects.filter(username = request.user.username)
-        if current_user.photo == "":
-            current_user.photo = 'static/images/default.png'
-        return render(request,'profilefeed.html',{"user":request.user,"dpic":current_user.photo})
-    
+   
 
 
