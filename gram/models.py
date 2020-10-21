@@ -48,3 +48,21 @@ class Profile(models.Model):
 
     def __str__(self):
         return self.bio
+
+class Comment(models.Model):
+    content = models.TextField()
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, null = True)
+    image = models.ForeignKey('Image', on_delete = models.CASCADE)
+
+    def save_comment(self):
+        self.save()
+
+    def update_comment(self, new_comment):
+        self.update(content = new_content)
+
+    def delete_comment(self):
+        self.delete()
+
+    def __str__(self):
+        return self.content
+    
