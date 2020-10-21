@@ -1,4 +1,4 @@
-Hello {{name}}
+Hello {{user}}
 
 Welcome to InstaGlam. Thank you for joining InstaGlam.
 We hope you enjoy your time on our site. Please reach out through this email if you face any problem.

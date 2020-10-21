@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container">
+    <div class="row">
+            {% for image in images %}
+            <div class=" col-md-4 col-lg-4" style="margin-top: 12px; margin-bottom: 6px;">
+                <a type="button" data-toggle="modal" data-target="#myModal{{image.id}}">
+                    <img style="width: 300px;height: 300px;" src="{{image.image.cdn_url}}" class="img-rounded" alt="Image">
+                </a>
+
+                <!-- Modal -->
+                <div id="myModal{{image.id}}" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                    
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header" style="background-color: #028090;color:white; font-weight: bolder;">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">{{image.name}}</h4>
+                            </div>
+                            <div class="modal-body" style="background-color: #ced4da;color:black; font-weight: bolder;">
+                                <img style="width: 600px;height: 450px;" src="{{image.image.cdn_url}}" class="img-responsive" alt="Image" >
+                                <h5><strong>{{image.caption}}</strong></h5>
+                                <ul>
+                                    <li>likes: {{image.likes}}</li>
+                                    <li>Uploaded: {{image.upload_date}}</li>
+                                    
+                                </ul>
+
+                            </div>
+                            <div class="modal-footer" style="background-color: #028090;">
+                                <input id="imgLink" type="text">
+                                <button type="button" class="btn btn-default" > Add Comment</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    
+                    </div>
+                </div>
+            </div>
+        
+            {% endfor %}
+    </div>
+</div>
+{% endblock %}

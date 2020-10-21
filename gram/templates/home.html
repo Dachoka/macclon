@@ -1,0 +1,42 @@
+{% extends 'base.html'%}
+
+{% block content %}
+
+    <header>
+        <div class="container">
+            <div class="row">
+                <div>
+                    <i class="fa fa-camera"></i>
+                </div>
+            
+                <div>
+                    <h1 class="logo">InstaGlam</h1>
+                </div>
+                  
+                <div>
+                 
+                    <i class="fa fa-television"></i>
+                    <i class="fa fa-paper-plane"></i>
+                </div>
+            </div>
+        </div>
+
+    </header>
+    <!-- <div class="body">
+        <div class="carousel-inner">
+            {% for review in reviews|slice:":3" %}
+                {% if forloop.first %}
+                    <div class="active item">
+                {% else %}
+                    <div class="item">
+                {% endif %}
+                    <blockquote>
+                        <p>{{ review.description }}</p>
+                    </blockquote>
+                    <label>{{ review.business }}</label>
+                </div>
+            {% endfor %}
+            </div>
+    </div> -->
+
+{% endblock %}

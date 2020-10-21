@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <ul>
+       
+        <li>
+            Bio: {{profile.bio}}
+        </li>
+        <li>
+            <img src="{{profile.photo.cdn_url}}" alt="imageprofile">
+        </li>
+    </ul>
+</div>
+
+
+{% endblock %}

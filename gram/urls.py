@@ -8,8 +8,11 @@ urlpatterns = [
     path('signup/', views.signup, name = 'signup'),
     path('upload/',views.uploadphoto, name ='upload'),
     path('profile/', views.profile, name = 'profile'),
-    path('addprofile/', views.addprofile, name = 'addprofile')
+    path('addprofile/', views.addprofile, name = 'addprofile'),
+    path('explore/', views.explore, name = 'explore'),
+    path('about/', views.about, name = 'about'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
 
-urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
-urlpatterns += static(settings.STATIC_URL, document_root = settings.STATIC_ROOT)
+

@@ -7,35 +7,48 @@ from .email import send_welcome_email
 from django.conf import settings
 from .models import Image,Profile
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 def homepage(request):
     return render(request, 'home.html')
 
+def about(request):
+    return render(request, 'about.html')
+
 def profile(request):
+    current_user = request.user
     return render(request, 'profile.html')
+
+def explore(request):
+    images = Image.objects.all()
+    profiles = Profile.objects.all()
+    current_user = request.user
+    return render(request, 'explore.html',{'images':images,'profiles':profiles,'user':current_user})
 
 def signup(request):
 
+
     if request.method == 'POST':
         user_form = UserCreateForm(request.POST)
-        profile_form = UpdateProfileForm(request.POST,request.FILES)
-        if user_form.is_valid() and profile_form.is_valid():
-            user =user_form.save()
-            profile = profile_form.save(commit =False)
-            profile.user = request.user
-            profile.save()
+        if user_form.is_valid():
+            user =user_form.save(commit = False)
             username = user_form.cleaned_data.get("username")
             email = user_form.cleaned_data.get("email")
+            password1 = user_form.cleaned_data.get("password1")
+            password2 = user_form.cleaned_data.get("password2")
+            new_user = User.objects.create(username =username, email=email, password = password1)
+            new_user.save()
+            login(request,new_user)
 
             send_welcome_email(username,email)
-            return redirect('profile')
+            return redirect('addprofile')
 
     else:
         user_form = UserCreateForm()
 
-    return render(request, 'registration/signup.html',{"user_form":user_form,"profile_form":profile_form})
+    return render(request, 'registration/signup.html',{"user_form":user_form})
 
 def addprofile(request):
     form = UpdateProfileForm()
