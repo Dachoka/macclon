@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 card" style="border: 1px solid #ccc; margin: 20px;">
+            <div class="card-header" style="background-color: #FAFAFA;border-bottom: 1px solid #cccccc; padding: 20px;">
+                <h4>{{image.name}}</h4>
+            </div>
+            <div class="card-body" style="padding: 20px;">
+                <img src="{{image.image.cdn_url}}" style="width: 400px;height: 400px;" alt="picha"><br>
+                <h5>{{image.caption}}</h5>
+                <p>{{image.upload_date}}</p>
+            </div>
+            <div class="card-footer" style="background-color: #FAFAFA;border-top: 1px solid #cccccc; padding: 20px; width: 100%;">
+                <h5><i class="fas fa-heart">{{image.likes}}</i></h5>
+                <p>Uploaded by : {{image.profile}}</p>
+            </div>
+        </div>
+    </div>
+    {%if comments %}
+    <div class="row">
+        <h2>{{comments.count}} comments</h2>
+
+        <div class="col-md-8 panel panel-default" >
+            {% for comment in comments %}
+                <div class="panel-body">
+                    <h5>{{comment.content}}</h5>
+                </div>
+                <div class="panel-footer">
+                    <h6>Written by {{comment.author}} on {{comment.date_added}}</h6>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {%else%}
+    <div class="row">
+        <h3>This image has no comments</h3>
+    </div>
+   {% endif %}
+</div>
+{% endblock %}

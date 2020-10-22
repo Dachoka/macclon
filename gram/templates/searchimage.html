@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <form method="get">
+        {{ filter.form }}
+        <button type="submit">Search</button>
+    </form>
+    <div class="row">
+        {% if filter.qs %}
+            <h2>Found {{filter.qs|length}} from searched term</h2>
+        {% else %}
+            <h2> Found 0 images that match you search terms</h2>
+        {% endif %}
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            {% if filter.qs %}
+                {% for image in filter.qs%}
+                <div class="card" style="border: 1px solid #ccc; margin: 20px;">
+                    <div class="card-header"  style="background-color: #FAFAFA;border-bottom: 1px solid #cccccc; padding: 20px;">
+                        <h3>{{image.profile}}</h3>
+                    </div>
+                    <div class="card-body" style="padding: 20px;">
+                        <a href="{% url 'imagedetail' image_id=image.id %}">
+                            <h3>{{image.name}}</h3><br>
+                            <img src="{{image.image.cdn_url}}" style="width: 400px;height: 400px;;" class="img-responsive" alt="pic"><br>
+                            <h4>{{image.caption}}</h4>
+                        </a>
+                    </div>
+                    <div class="card-footer"  style="background-color: #FAFAFA;border-top: 1px solid #cccccc; padding: 20px;">
+                        <p>
+                            <span><i class="fas fa-heart"></i></span> {{image.likes}}
+                            <span><i class="fas fa-comment"></i></span> {{image.usercomments.count}}
+                        </p>
+                        <p>Uploaded: {{image.upload_date}}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
+
+
+
+</div>
+{% endblock %}

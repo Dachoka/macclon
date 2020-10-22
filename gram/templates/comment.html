@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="panel panel-group">
+        <div class="panel-header" style="padding: 20px;border: 1px solid #ccc; text-align: center; background-color: gray;">
+            <h2>Leave a comment</h2>
+        </div>
+        <div class="panel-body" style="padding: 20px; background-color: #FAFAFA;border: 1px solid #ccc;">
+            <form method="post" style="margin-top: 1.3em;">
+                {{ comment_form.as_p }}
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary  btn-lg">Submit</button>
+            </form>  
+        </div>
+    </div>
+   
+</div>
+
+
+{% endblock %}

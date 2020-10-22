@@ -1,4 +1,5 @@
 {% load bootstrap3 %}
+{% load fontawesome_5 %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +13,7 @@
     {% endif %}
 
     {% block styles %}
+        {% fontawesome_5_static %}
         {% bootstrap_css %}
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />

@@ -52,12 +52,16 @@ class Profile(models.Model):
 class Comment(models.Model):
     content = models.TextField()
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete = models.CASCADE, null = True)
-    image = models.ForeignKey('Image', on_delete = models.CASCADE)
+    image = models.ForeignKey('Image', on_delete = models.CASCADE, related_name = 'usercomments')
+    date_added = models.DateTimeField(auto_now_add = True)
+
+    class Meta:
+        ordering = ['date_added']
 
     def save_comment(self):
         self.save()
 
-    def update_comment(self, new_comment):
+    def update_comment(self, new_content):
         self.update(content = new_content)
 
     def delete_comment(self):

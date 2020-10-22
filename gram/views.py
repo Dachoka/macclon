@@ -52,6 +52,7 @@ def signup(request):
         user_form = UserCreateForm()
 
     return render(request, 'registration/signup.html',{"user_form":user_form})
+        
 
 def addprofile(request):
     form = UpdateProfileForm()
@@ -99,23 +100,31 @@ def filterprofile(request):
     profile_filter = ProfileFilter(request.GET, queryset = filter_list)
     return render (request, 'searchprofile.html', {"filter": profile_filter})
 
-def image_detail(request, slug):
-    image = get_object_or_404(Image, slug=slug)
+def imagedetail(request, image_id):
+    image = Image.objects.get(id = image_id)
     comments = image.usercomments.all()
-    new_comment = None
+
+    return render(request, 'imagedetails.html',{'image':image,'comments':comments,})
+
+def addcomment(request, image_id):
+    image = Image.objects.get(id = image_id)
+    current_user = request.user
+    comment_form = AddCommentForm()
 
     if request.method == 'POST':
-        comment_form = AddCommentForm(data=request.POST)
+        comment_form = AddCommentForm(request.POST)
         if comment_form.is_valid():
             new_comment = comment_form.save(commit=False)
             new_comment.image = image
+            new_comment.author = current_user
             new_comment.save()
+
+            return redirect('explore')
 
         else:
             comment_form = AddCommentForm()
 
-    return render(request, 'imagedetails.html',{'image':image,'comments':comments,'new_comment':new_comment,'comment_form':comment_form})
-
+    return render(request, 'comment.html', {'comment_form':comment_form,'current_user':current_user,'image':image})
 
 
 

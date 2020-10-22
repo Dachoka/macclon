@@ -20,7 +20,7 @@ class UpdateProfileForm(forms.ModelForm):
         model = Profile
         fields = ['photo','bio']
 
-class AddComment(forms.ModelForm):
+class AddCommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['content']

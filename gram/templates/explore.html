@@ -3,44 +3,33 @@
 
 <div class="container">
     <div class="row">
-            {% for image in images %}
-            <div class=" col-md-4 col-lg-4" style="margin-top: 12px; margin-bottom: 6px;">
-                <a type="button" data-toggle="modal" data-target="#myModal{{image.id}}">
-                    <img style="width: 300px;height: 300px;" src="{{image.image.cdn_url}}" class="img-rounded" alt="Image">
-                </a>
-
-                <!-- Modal -->
-                <div id="myModal{{image.id}}" class="modal fade" role="dialog">
-                    <div class="modal-dialog">
-                    
-                        <!-- Modal content-->
-                        <div class="modal-content">
-                            <div class="modal-header" style="background-color: #028090;color:white; font-weight: bolder;">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">{{image.name}}</h4>
-                            </div>
-                            <div class="modal-body" style="background-color: #ced4da;color:black; font-weight: bolder;">
-                                <img style="width: 600px;height: 450px;" src="{{image.image.cdn_url}}" class="img-responsive" alt="Image" >
-                                <h5><strong>{{image.caption}}</strong></h5>
-                                <ul>
-                                    <li>likes: {{image.likes}}</li>
-                                    <li>Uploaded: {{image.upload_date}}</li>
-                                    
-                                </ul>
-
-                            </div>
-                            <div class="modal-footer" style="background-color: #028090;">
-                                <input id="imgLink" type="text">
-                                <button type="button" class="btn btn-default" > Add Comment</button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+           <div class="col-md-8">
+               {% for image in images %}
+               <div class="panel panel-default">
+                    <div class="panel-header" style="padding: 20px;">
+                        <h4>{{image.name}}</h4>
+                    </div>
+                    <div class="panel-body">
+                        <a href="{% url 'imagedetail' image_id=image.id  %}">
+                            <img src="{{image.image.cdn_url}}" style="width: 600px;height: 600px;" class="img-responsive" alt="picz"><br>
+                            <h3>{{image.caption}}</h3>
+                        </a>
+                    </div>
+                    <div class="panel-footer">
+                        <p>
+                            <span><i class="fas fa-heart"></i></span> {{image.likes}}
+                            <span><i class="fas fa-comment"></i></span> {{image.usercomments.count}}
+                        </p>
+                        <p>Uploaded: {{image.upload_date}}</p>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <button class="btn btn-primary"><a href="{%url 'addcomment' image_id=image.id%}" style="color: white;">Add A Comment</a></button>
                             </div>
                         </div>
-                    
                     </div>
-                </div>
-            </div>
-        
-            {% endfor %}
+               </div>
+               {% endfor %}
+           </div>
     </div>
 </div>
 {% endblock %}
